@@ -1,0 +1,95 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!--  -->
+    <style>
+        body {
+            padding-top: 80px;
+            padding-left: 50px;
+            font-size: 20px;
+        }
+        .container { margin:10px ; min-width:10px;}
+    </style>
+
+</head>
+<body>
+<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand"  style="font-size: 25px">C语言在线考试系统</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav"> <!-- 下列class="active"  为那个高亮 -->
+                <li  ><a href=""><span class="glyphicon glyphicon-home"></span> 题库 </a></li>
+                <li><a href=""><span class="glyphicon glyphicon-briefcase"></span> 考试 </a></li>
+                <li><a href="<%=basePath%>/user/toteacher.do"><span class="glyphicon glyphicon-envelope"></span> 教师 </a></li>
+                <li><a href=""><span class="glyphicon glyphicon-envelope"></span> 公共信息 </a></li>
+                <li><a href=""><span class="glyphicon glyphicon-cog"></span> 基础设置 </a></li>
+            </ul>
+            <div   style="margin: 10px ; text-align:right"  class="info">
+                <span style="color: gray">欢迎您： Administrator</span>
+                <em>|</em>
+                <a  href="../登录界面.html">退出</a>
+            </div>
+        </div>
+    </div><!-- /.container -->
+</div>  <!-- 抬头 -->
+
+
+<div >
+    <p>
+    <p>
+        管理员首页 &#8594; 教师
+    </p>
+    </p>
+</div><!-- 当前位置 -->
+
+<div class="text-center">
+    <h1 class="text-center">教师列表信息页面</h1>
+    <hr/>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th style="text-align: center;">老师编号</th>
+                <th style="text-align: center;">老师姓名</th>
+                <th style="text-align: center;">密码</th>
+                <th style="text-align: center;">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${requestScope.page.beanList}" var="customer">
+                <tr class="text-center">
+                    <td>${customer.id}</td>
+                    <td>${customer.name}</td>
+                    <td>${customer.password}</td>
+                    <td>
+                        <a href="#" onclick="return edit(${customer.id})" style="text-decoration: none;">
+                            <span class="fa fa-edit fa-fw"></span>
+                        </a>
+                        <a href="#" onclick="return trash(${customer.id})" style="text-decoration: none;"
+                           data-toggle="modal" data-target="#trashModal">
+                            <span class="fa fa-trash-o fa-fw"></span>
+                        </a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+
+
+</body>
+</html>

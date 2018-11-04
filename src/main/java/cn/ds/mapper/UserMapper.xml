@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ds.mapper.UserMapper">
+
+    <!-- 用户登录的方法 id与方法名中相同  持久层-->
+     <select id="login" parameterType="cn.ds.pojo.User" resultType="User">
+        select * from tb_user where username = #{username}
+    </select>
+
+    <!-- 分页-条件查询 -->
+    <select id="findTeacherAll" resultType="cn.ds.pojo.Teacher">
+        select * from teacher
+    </select>
+
+
+    <!-- 保存 -->
+    <insert id="create" parameterType="Teacher">
+        insert into
+        teacher(
+          username,
+        password)
+        values(
+          #{username},
+          #{password}
+        );
+    </insert>
+
+    <!-- 根据id删除信息的方法 -->
+    <delete id="delete" parameterType="Long">
+        delete from teacher where id = #{id}
+    </delete>
+
+    <!-- 根据id查询客户信息的方法 -->
+    <select id="findById" parameterType="Long" resultType="Teacher">
+        select * from teacher where id = #{id}
+    </select>
+
+    <!-- 更新老师信息的方法 -->
+    <update id="update" parameterType="Teacher">
+        update teacher set
+            id = #{id},
+            username = #{username},
+            password= #{password}
+        where id = #{id}
+    </update>
+
+    <!-- 一对多查询 -->
+    <resultMap type="Point1" id="categoryBean">
+        <id column="cid" property="id" />
+        <result column="cname" property="pointname" />
+        <!-- property: 指的是集合属性的值, ofType：指的是集合中元素的类型 -->
+        <collection property="point2" ofType="Point2">
+            <id column="pid" property="bid" />
+            <result column="pname" property="pname" />
+        </collection>
+    </resultMap>
+    <select id="findPoint1All" resultMap="categoryBean">
+            select c.*, p.* ,c.id 'cid', p.bid 'pid', c.pointname 'cname', p.pname 'pname'
+            from Point1 c
+            left join point2 p on c.id = p.aid
+       </select>
+
+</mapper>
